@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"; 
 import { useSelector } from "react-redux";
 
 import {
@@ -14,12 +15,19 @@ import {
     Container,
 } from "@mui/material";
 
+import {
+    Done,
+    DoneAll,
+} from "@mui/icons-material";
+
 import Axios from "axios";
 
 const env = process.env;
 const baseUrl = env.REACT_APP_BACKEND_URL;
 
 const AllTickets = () => {
+    const history = useHistory();
+
     const [tickets, setTickets] = useState([]);
     const user = useSelector(state => state.user);
 
@@ -35,12 +43,12 @@ const AllTickets = () => {
 
     const getStatus = (status) => {
         switch (status) {
-            case 1:
-                return "خوانده نشده";
-            case 2:
-                return "خوانده شده";
-            case 3:
-                return "پاسخ داده شد";
+            case '1':
+                return <Done />;
+            case '2':
+                return <DoneAll />;
+            case '3':
+                return <DoneAll sx={{ color: "blue" }} />;
             default:
                 return status;
         }
@@ -71,7 +79,12 @@ const AllTickets = () => {
                             <TableBody>
                                 {
                                     tickets.map((ticket) => (
-                                        <TableRow>
+                                        <TableRow
+                                            onClick={() => history.push(`/tickets/show/${ticket._id}`)}
+                                            sx={{
+                                                cursor: "pointer",
+                                            }}
+                                        >
                                             <TableCell align="center">{ ticket.title }</TableCell>
                                             <TableCell align="center">{ new Date(ticket.createdAt).toLocaleString("fa-IR") }</TableCell>
                                             <TableCell align="center">{ getStatus(ticket.status) }</TableCell>
