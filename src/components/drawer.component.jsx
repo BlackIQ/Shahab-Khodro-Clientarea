@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useSelector } from "react-redux"; 
+import { useState, useEffect } from "react";
 
 import {
     Box,
@@ -11,6 +12,7 @@ import {
     Typography,
     Divider,
     Toolbar,
+    Avatar,
 } from "@mui/material";
 
 import {
@@ -25,6 +27,11 @@ import {
     InsertComment,
 } from "@mui/icons-material";
 
+import Axios from "axios";
+
+const env = process.env;
+const baseUrl = env.REACT_APP_BACKEND_URL;
+
 const DrawerComponent = (props) => {
     const { close } = props;
 
@@ -32,6 +39,19 @@ const DrawerComponent = (props) => {
 
     const [ticketsOpen, setTicketsOpen] = useState(false);
     const [afterSalesOpen, setAfterSalesOpen] = useState(false);
+
+    const [client, setClient] = useState({});
+    const user = useSelector(state => state.user);
+
+    useEffect(() => {
+        Axios.get(`${baseUrl}/v1/client/find/${user}`)
+            .then((result) => {
+                setClient(result.data.user);
+            })
+            .catch((error) => {
+                console.log(error.response.data);
+            });
+    }, []);
 
     const navigateDrawerItem = (path) => {
         history.push(path);
@@ -98,13 +118,19 @@ const DrawerComponent = (props) => {
             }}
         >
             <Toolbar>
-                <Box>
-                    <Typography
-                        variant="h6"
-                    >
-                        نام کاربر
-                    </Typography>
-                </Box>
+                <Avatar
+                    sx={{
+                        ml: 2,
+                        bgcolor: "primary.main"
+                    }}
+                >
+                    { client.name[0] }
+                </Avatar>
+                <Typography
+                    variant="h6"
+                >
+                    { client.name }
+                </Typography>
             </Toolbar>
             <Divider />
             <List>
