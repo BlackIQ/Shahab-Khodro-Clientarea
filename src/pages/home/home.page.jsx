@@ -60,13 +60,13 @@ const HomePage = () => {
         {
             icon: <DesignServices color="success" sx={{ fontSize: 60, mb: 3 }}/>,
             text: "درخواست های پاسخ داده شده",
-            count: requests.filter(ticket => ticket.status === 3).length,
+            count: requests.filter(request => request.status === 3).length,
             color: "success",
         },
         {
             icon: <DesignServices color="error" sx={{ fontSize: 60, mb: 3 }}/>,
             text: "تیکت های پاسخ داده نشده",
-            count: requests.filter(ticket => ticket.status !== 3).length,
+            count: requests.filter(request => request.status !== 3).length,
             color: "error",
         },
     ];

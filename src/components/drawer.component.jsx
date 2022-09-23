@@ -123,9 +123,7 @@ const DrawerComponent = (props) => {
                         ml: 2,
                         bgcolor: "primary.main"
                     }}
-                >
-                    { client.name[0] }
-                </Avatar>
+                />
                 <Typography
                     variant="h6"
                 >
