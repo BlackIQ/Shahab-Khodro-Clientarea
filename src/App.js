@@ -3,7 +3,6 @@ import {
   ThemeProvider,
   colors,
   Box,
-  Typography,
 } from "@mui/material";
 import { faIR } from '@mui/material/locale';
 
@@ -13,12 +12,15 @@ import {
   Route,
 } from "react-router-dom";
 
+import NewTicket from "./pages/home/tickets/newticket.page";
+import ShowTicket from "./pages/home/tickets/showticket.page";
 import AllTickets from "./pages/home/tickets/alltickets.page";
+
+import NewRequest from "./pages/home/after_sales/newrequest.page";
+import ShowRequest from "./pages/home/after_sales/showrequest.page";
 import AllRequests from "./pages/home/after_sales/allrequests.page";
 
-import NewTicket from "./pages/home/tickets/newticket.page";
-import NewRequest from "./pages/home/after_sales/newrequest.page";
-
+import HomePage from "./pages/home/home.page";
 import AuthenticationPage from "./pages/authentication/authentication.page";
 
 import HomeLayout from "./pages/layouts/home.layout";
@@ -33,7 +35,7 @@ const authRoutes = [
 const homeRoutes = [
   {
     path: "/",
-    component: <Typography>خانه</Typography>,
+    component: <HomePage />,
   },
   {
     path: "/tickets",
@@ -45,7 +47,7 @@ const homeRoutes = [
   },
   {
     path: "/tickets/show/:id",
-    component: <Typography>نمایش یک تیکت</Typography>,
+    component: <ShowTicket />,
   },
   {
     path: "/after_sales",
@@ -57,7 +59,7 @@ const homeRoutes = [
   },
   {
     path: "/after_sales/show/:id",
-    component: <Typography>نمایش یک درخواست</Typography>,
+    component: <ShowRequest />,
   },
 ];
 
