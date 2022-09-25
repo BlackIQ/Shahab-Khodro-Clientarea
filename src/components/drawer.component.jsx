@@ -1,10 +1,11 @@
-import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux"; 
 import { useState, useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 import {
     Box,
     List,
+    ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
@@ -33,9 +34,10 @@ const env = process.env;
 const baseUrl = env.REACT_APP_BACKEND_URL;
 
 const DrawerComponent = (props) => {
-    const { close } = props;
-
     const history = useHistory();
+    const location = useLocation();
+    
+    const path = location.pathname;
 
     const [ticketsOpen, setTicketsOpen] = useState(false);
     const [afterSalesOpen, setAfterSalesOpen] = useState(false);
@@ -55,7 +57,6 @@ const DrawerComponent = (props) => {
 
     const navigateDrawerItem = (path) => {
         history.push(path);
-        close();
     }
 
     const newItems = [
@@ -64,6 +65,7 @@ const DrawerComponent = (props) => {
             item: {
                 text: "خانه",
                 icon: <Home />,
+                path: "/",
                 action: () => navigateDrawerItem("/"),
             },
         },
@@ -79,11 +81,13 @@ const DrawerComponent = (props) => {
                 {
                     text: "تیکت های من",
                     icon: <CollectionsBookmark />,
+                    path: "/tickets",
                     action: () => navigateDrawerItem("/tickets"),
                 },
                 {
                     text: "تیکت جدید",
                     icon: <InsertComment />,
+                    path: "/tickets/new",
                     action: () => navigateDrawerItem("/tickets/new"),
                 },
             ],
@@ -100,11 +104,13 @@ const DrawerComponent = (props) => {
                 {
                     text: "درخواست های من",
                     icon: <DesignServices />,
+                    path: "/after_sales",
                     action: () => navigateDrawerItem("/after_sales"),
                 },
                 {
                     text: "درخواست جدید",
                     icon: <Sos />,
+                    path: "/after_sales/new",
                     action: () => navigateDrawerItem("/after_sales/new"),
                 },
             ],
@@ -115,81 +121,116 @@ const DrawerComponent = (props) => {
         <Box
             sx={{
                 textAlign: 'center',
+                pt: 5,
             }}
         >
-            <Toolbar>
+            <Toolbar />
+            <Box
+                sx={{
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    mb: 3,
+                }}
+            >
                 <Avatar
                     sx={{
-                        ml: 2,
+                        height: 100,
+                        width: 100,
                         bgcolor: "primary.main"
                     }}
                 />
-                <Typography
-                    variant="h6"
-                >
-                    { client.name }
-                </Typography>
-            </Toolbar>
-            <Divider />
+            </Box>
+            <Typography
+                variant="h4"
+                fontFamily="Lalezar"
+                color="primary"
+            >
+                { client.name }
+            </Typography>
+            <Box
+                sx={{
+                    px: 2,
+                    pt: 3,
+                }}
+            >
+                <Divider
+                    sx={{
+                        borderColor: "primary.main",
+                    }}
+                />
+            </Box>
             <List>
                 {
                     newItems.map((item, index) => (
                         item.type === "nested"
                         ?
                         <Box key={item.type + index}>
-                            <ListItemButton onClick={item.header.action}>
-                                <ListItemIcon sx={{ color: "primary.main" }}>
-                                    { item.header.icon }
-                                </ListItemIcon>
-                                <ListItemText
-                                    sx={{
-                                        textAlign: "right",
-                                        color: "primary.main"
-                                    }}
-                                    primary={item.header.text}
-                                />
-                                { item.header.open ? <ExpandLess /> : <ExpandMore /> }
-                            </ListItemButton>
+                            <ListItem>
+                                <ListItemButton onClick={item.header.action}>
+                                    <ListItemIcon sx={{ color: "primary.main" }}>
+                                        { item.header.icon }
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        sx={{
+                                            textAlign: "right",
+                                            color: "primary.main"
+                                        }}
+                                        primary={item.header.text}
+                                    />
+                                    { item.header.open ? <ExpandLess /> : <ExpandMore /> }
+                                </ListItemButton>
+                            </ListItem>
                             <Collapse in={item.header.open} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
+                                <List component="div">
                                     {
                                         item.items.map((i) => (
-                                            <ListItemButton
-                                                key={i.text}
-                                                onClick={i.action}
-                                                sx={{ pr: 4 }}
-                                            >
-                                                <ListItemIcon sx={{ color: "primary.main" }}>
-                                                    { i.icon }
-                                                </ListItemIcon>
-                                                <ListItemText
+                                            <ListItem key={i.text}>
+                                                <ListItemButton
+                                                    selected={path === i.path}
+                                                    onClick={i.action}
                                                     sx={{
-                                                        textAlign: "right",
-                                                        color: "primary.main"
+                                                        pr: 4,
+                                                        borderRight: "solid",
+                                                        borderRightWidth: 0.5,
+                                                        borderRightColor: "primary.main",
                                                     }}
-                                                    primary={i.text}
-                                                />
-                                            </ListItemButton>
+                                                >
+                                                    <ListItemIcon sx={{ color: "primary.main" }}>
+                                                        { i.icon }
+                                                    </ListItemIcon>
+                                                    <ListItemText
+                                                        sx={{
+                                                            textAlign: "right",
+                                                            color: "primary.main"
+                                                        }}
+                                                        primary={i.text}
+                                                    />
+                                                </ListItemButton>
+                                            </ListItem>
                                         ))
                                     }
                                 </List>
                             </Collapse>
                         </Box>
                         :
-                        <ListItemButton
-                            onClick={item.item.action}
-                        >
-                            <ListItemIcon sx={{ color: "primary.main" }}>
-                                { item.item.icon }
-                            </ListItemIcon>
-                            <ListItemText
-                                sx={{
-                                    textAlign: "right",
-                                    color: "primary.main"
-                                }}
-                                primary={item.item.text}
-                            />
-                        </ListItemButton>
+                        <ListItem>
+                            <ListItemButton
+                                selected={path === item.item.path}
+                                onClick={item.item.action}
+                            >
+                                <ListItemIcon sx={{ color: "primary.main" }}>
+                                    { item.item.icon }
+                                </ListItemIcon>
+                                <ListItemText
+                                    sx={{
+                                        textAlign: "right",
+                                        color: "primary.main"
+                                    }}
+                                    primary={item.item.text}
+                                />
+                            </ListItemButton>
+                        </ListItem>
                     ))
                 }
             </List>
