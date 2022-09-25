@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import {
     Grid,
     Box,
-    Container,
+    colors,
     Card,
     CardHeader,
     CardContent,
@@ -33,104 +33,103 @@ const ShowRequest = () => {
 
     return (
         <Box>
-            <Container
-                maxWidth="md"
-                sx={{ my: 2 }}
+            <Grid
+                spacing={3}
+                container
             >
                 <Grid
-                    spacing={3}
-                    container
+                    md={6}
+                    sm={6}
+                    xs={10}
+                    item
                 >
-                    <Grid
-                        md={6}
-                        sm={6}
-                        xs={10}
-                        item
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            bgcolor: colors.deepPurple[500],
+                            color: "white",
+                        }}
                     >
-                        <Card
-                            variant="elevation"
-                            elevation={5}
-                        >
-                            <CardHeader
-                                title={request.title}
+                        <CardHeader
+                            title={request.title}
+                            sx={{
+                                fontWeight: "bold",
+                                borderBottom: "solid",
+                                borderBottomWidth: 1,
+                            }}
+                        />
+                        <CardContent>
+                            <Typography
+                                variant="body1"
+                                gutterBottom
+                            >
+                                { request.request }
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                gutterBottom
                                 sx={{
-                                    fontWeight: "bold",
-                                    borderBottom: "solid",
-                                    borderBottomWidth: 1,
+                                    mb: 5,
                                 }}
-                            />
-                            <CardContent>
-                                <Typography
-                                    variant="body1"
-                                    gutterBottom
-                                >
-                                    { request.request }
-                                </Typography>
+                            >
+                                ماشین: { request.machine }
+                            </Typography>
+                            <Typography
+                                variant="subtitle2"
+                            >
+                                ارسال شده در { new Date(request.createdAt).toLocaleString("fa-IR") }
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid md={6} sm={6} xs={2} item />
+                <Grid md={6} sm={6} xs={2} item />
+                <Grid
+                    md={6}
+                    sm={6}
+                    xs={10}
+                    item
+                >
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            borderColor: "primary.main",
+                            bgcolor: request.answer !== "" ? colors.deepPurple[500] : "white",
+                            color: request.answer !== "" ? "white" : "primary.main",
+                        }}
+                    >
+                        <CardContent>
+                            {
+                                request.answer !== ""
+                                ?
+                                <Box>
+                                    <Typography
+                                        variant="body1"
+                                        gutterBottom
+                                        sx={{
+                                            mb: 5,
+                                        }}
+                                    >
+                                        { request.answer }
+                                    </Typography>
+                                    <Typography
+                                        variant="subtitle2"
+                                    >
+                                        پاسخ داده شده در { new Date(request.updatedAt).toLocaleString("fa-IR") }
+                                    </Typography>
+                                </Box>
+                                :
                                 <Typography
                                     variant="body2"
-                                    gutterBottom
-                                    sx={{
-                                        mb: 5,
-                                    }}
+                                    fontStyle="italic"
                                 >
-                                    ماشین: { request.machine }
+                                    هنوز پاسخی برای این درخواست ثبت نشده است.
                                 </Typography>
-                                <Typography
-                                    variant="subtitle2"
-                                >
-                                    ارسال شده در { new Date(request.createdAt).toLocaleString("fa-IR") }
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid md={6} sm={6} xs={2} item />
-                    <Grid md={6} sm={6} xs={2} item />
-                    <Grid
-                        md={6}
-                        sm={6}
-                        xs={10}
-                        item
-                    >
-                        <Card
-                            variant="elevation"
-                            elevation={5}
-                            sx={{
-                                bgcolor: "background.default"
-                            }}
-                        >
-                            <CardContent>
-                                {
-                                    request.answer !== ""
-                                    ?
-                                    <Box>
-                                        <Typography
-                                            variant="body1"
-                                            gutterBottom
-                                            sx={{
-                                                mb: 5,
-                                            }}
-                                        >
-                                            { request.answer }
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle2"
-                                        >
-                                            پاسخ داده شده در { new Date(request.updatedAt).toLocaleString("fa-IR") }
-                                        </Typography>
-                                    </Box>
-                                    :
-                                    <Typography
-                                        variant="body2"
-                                        fontStyle="italic"
-                                    >
-                                        هنوز پاسخی برای این درخواست ثبت نشده است.
-                                    </Typography>
-                                }
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                            }
+                        </CardContent>
+                    </Card>
                 </Grid>
-            </Container>
+            </Grid>
         </Box>
     );
 }

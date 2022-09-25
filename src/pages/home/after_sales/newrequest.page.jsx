@@ -42,65 +42,60 @@ const NewRequest = () => {
 
     return (
         <Box>
-            <Container
-                maxWidth="md"
-                sx={{ my: 2 }}
+            <Card
+                variant="elevation"
+                elevation={20}
             >
-                <Card
-                    variant="elevation"
-                    elevation={20}
-                >
-                    <CardHeader
-                        title="افزودن درخواست جدید"
+                <CardHeader
+                    title="افزودن درخواست جدید"
+                    sx={{
+                        color: "primary.main",
+                    }}
+                />
+                <CardContent>
+                    <TextField
+                        placeholder="موضوع درخواست را وارد کنید"
+                        label="موضوع درخواست"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         sx={{
-                            color: "primary.main",
+                            mb: 3,
                         }}
+                        fullWidth
                     />
-                    <CardContent>
-                        <TextField
-                            placeholder="موضوع درخواست را وارد کنید"
-                            label="موضوع درخواست"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            sx={{
-                                mb: 3,
-                            }}
-                            fullWidth
-                        />
-                        <TextField
-                            placeholder="دستگاه خود وارد کنید"
-                            label="دستگاه"
-                            value={machine}
-                            onChange={(e) => setMachine(e.target.value)}
-                            sx={{
-                                mb: 3,
-                            }}
-                            fullWidth
-                        />
-                        <TextField
-                            placeholder="توضیحات درخواست را وارد کنید"
-                            label="توضیحات درخواست"
-                            value={request}
-                            onChange={(e) => setRequest(e.target.value)}
-                            rows={5}
-                            sx={{
-                                mb: 3,
-                            }}
-                            multiline
-                            fullWidth
-                        />
-                        <Button
-                            variant="contained"
-                            size="large"
-                            onClick={newEvent}
-                            disableElevation
-                            fullWidth
-                        >
-                            افزودن درخواست
-                        </Button>
-                    </CardContent>
-                </Card>
-            </Container>
+                    <TextField
+                        placeholder="دستگاه خود وارد کنید"
+                        label="دستگاه"
+                        value={machine}
+                        onChange={(e) => setMachine(e.target.value)}
+                        sx={{
+                            mb: 3,
+                        }}
+                        fullWidth
+                    />
+                    <TextField
+                        placeholder="توضیحات درخواست را وارد کنید"
+                        label="توضیحات درخواست"
+                        value={request}
+                        onChange={(e) => setRequest(e.target.value)}
+                        rows={5}
+                        sx={{
+                            mb: 3,
+                        }}
+                        multiline
+                        fullWidth
+                    />
+                    <Button
+                        variant="contained"
+                        size="large"
+                        onClick={newEvent}
+                        disableElevation
+                        fullWidth
+                    >
+                        افزودن درخواست
+                    </Button>
+                </CardContent>
+            </Card>
         </Box>
     );
 }

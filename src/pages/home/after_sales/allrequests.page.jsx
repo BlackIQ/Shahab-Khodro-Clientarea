@@ -15,11 +15,6 @@ import {
     Container,
 } from "@mui/material";
 
-import {
-    Done,
-    DoneAll,
-} from "@mui/icons-material";
-
 import Axios from "axios";
 
 const env = process.env;
@@ -44,11 +39,11 @@ const AllRequests = () => {
     const getStatus = (status) => {
         switch (status) {
             case '1':
-                return <Done />;
+                return "به دست پشتیبان رسیده است";
             case '2':
-                return <DoneAll />;
+                return "توسط پشتیبان خوانده شد";
             case '3':
-                return <DoneAll sx={{ color: "blue" }} />;
+                return "به تیکت جواب داده شد";
             default:
                 return status;
         }
@@ -56,50 +51,52 @@ const AllRequests = () => {
 
     return (
         <Box>
-            <Container
-                maxWidth="md"
-                sx={{ my: 2 }}
-            >
-                {
-                    afterSales !== []
-                    ?
-                    <TableContainer
-                        variant="elevation"
-                        elevation={20}
-                        component={Paper}
-                    >
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align="center">موضوع درخواست</TableCell>
-                                    <TableCell align="center">تاریخ ثبت درخواست</TableCell>
-                                    <TableCell align="center">وضعیت</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    afterSales.map((request) => (
-                                        <TableRow
-                                            onClick={() => history.push(`/after_sales/show/${request._id}`)}
-                                            sx={{
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            <TableCell align="center">{ request.title }</TableCell>
-                                            <TableCell align="center">{ new Date(request.createdAt).toLocaleString("fa-IR") }</TableCell>
-                                            <TableCell align="center">{ getStatus(request.status) }</TableCell>
-                                        </TableRow>
-                                    ))
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    :
-                    <Typography>
-                        هیچ درخواستی یافت نشد.
-                    </Typography>
-                }
-            </Container>
+            {
+                afterSales !== []
+                ?
+                <TableContainer
+                    variant="elevation"
+                    elevation={20}
+                    component={Paper}
+                >
+                    <Table>
+                        <TableHead>
+                            <TableRow
+                                sx={{
+                                    bgcolor: "primary.main",
+                                }}
+                            >
+                                <TableCell align="center" sx={{ color: "white" }}>موضوع درخواست</TableCell>
+                                <TableCell align="center" sx={{ color: "white" }}>تاریخ ثبت درخواست</TableCell>
+                                <TableCell align="center" sx={{ color: "white" }}>وضعیت</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                afterSales.map((request) => (
+                                    <TableRow
+                                        onClick={() => history.push(`/after_sales/show/${request._id}`)}
+                                        sx={{
+                                            cursor: "pointer",
+                                            '&:nth-of-type(even)': {
+                                                backgroundColor: "background.default",
+                                            },
+                                        }}
+                                    >
+                                        <TableCell align="center">{ request.title }</TableCell>
+                                        <TableCell align="center">{ new Date(request.createdAt).toLocaleString("fa-IR") }</TableCell>
+                                        <TableCell align="center">{ getStatus(request.status) }</TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                :
+                <Typography>
+                    هیچ درخواستی یافت نشد.
+                </Typography>
+            }
         </Box>
     );
 }
