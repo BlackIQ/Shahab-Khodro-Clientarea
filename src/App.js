@@ -3,6 +3,7 @@ import {
   ThemeProvider,
   colors,
   Box,
+  CssBaseline,
 } from "@mui/material";
 import { faIR } from '@mui/material/locale';
 
@@ -63,14 +64,14 @@ const homeRoutes = [
   },
 ];
 
-function App() {
+const App = () => {
   const theme = createTheme({
     palette: {
       background: {
-        default: colors.blue[50],
+        default: colors.deepPurple[50],
       },
       primary: {
-        main: colors.blue[900],
+        main: colors.deepPurple[900],
       },
     },
     typography: {
@@ -80,9 +81,10 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ direction: "rtl" }}>
-        <Router>
-          <Switch>
+      <CssBaseline />
+      <Router>
+        <Switch>
+          <Box sx={{ direction: "rtl" }}>
             {
               authRoutes.map((route) => (
                 <Route path={route.path} exact>{ route.component }</Route>
@@ -95,9 +97,9 @@ function App() {
                 ))
               }
             </HomeLayout>
-          </Switch>
-        </Router>
-      </Box>
+          </Box>
+        </Switch>
+      </Router>
     </ThemeProvider>
   );
 }
