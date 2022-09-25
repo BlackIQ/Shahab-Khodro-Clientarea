@@ -1,34 +1,28 @@
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
+    Box,
     AppBar,
     Toolbar,
     Typography,
     IconButton,
     Container,
-    Box,
-    Drawer,
 } from "@mui/material";
 
 import {
     Logout,
-    Menu,
+    Login,
 } from "@mui/icons-material";
 
 import { unsetSession } from "../redux/session/actions";
 import { unsetToken } from "../redux/user/actions";
 
-import DrawerComponent from "./drawer.component";
-const drawerWith = 300;
-
 const Navbar = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const handleDrawer = () => setDrawerOpen(!drawerOpen);
+    const session = useSelector(state => state.session);
 
     const logout = () => {
         dispatch(unsetSession());
@@ -37,15 +31,15 @@ const Navbar = () => {
 
     return (
         <Box>
-            <AppBar elevation={0}>
+            <AppBar
+                elevation={0}
+                position="fixed"
+                sx={{
+                    zIndex: (theme) => theme.zIndex.drawer + 1
+                }}
+            >
                 <Container maxWidth="xl">
                     <Toolbar>
-                        <IconButton
-                            color="inherit"
-                            onClick={handleDrawer}
-                        >
-                            <Menu />
-                        </IconButton>
                         <Typography
                             variant="h5"
                             onClick={() => history.push("/")}
@@ -59,41 +53,13 @@ const Navbar = () => {
                         </Typography>
                         <IconButton
                             color="inherit"
-                            onClick={logout}
+                            onClick={() => session ? logout() : history.push("/auth")}
                         >
-                            <Logout />
+                            { session ? <Logout /> : <Login /> }
                         </IconButton>
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Toolbar />
-
-            <Box
-                component="nav"
-            >
-                <Drawer
-                    variant="temporary"
-                    anchor="right"
-                    open={drawerOpen}
-                    onClose={handleDrawer}
-                    ModalProps={{
-                        keepMounted: true,
-                    }}
-                    sx={{
-                        '& .MuiDrawer-paper': {
-                            boxSizing: 'border-box',
-                            width: drawerWith,
-                            bgcolor: "background.default",
-                            direction: "rtl"
-                        },
-                    }}
-                >
-                    <Box>
-                        <DrawerComponent close={handleDrawer} />
-                    </Box>
-                </Drawer>
-            </Box>
-
         </Box>
     );
 }
