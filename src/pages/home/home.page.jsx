@@ -76,26 +76,25 @@ const HomePage = () => {
             maxWidth="lg"
             sx={{ my: 2 }}
         >
-            <Card
-                variant="outlined"
+            <Grid
+                spacing={2}
+                container
             >
-                <CardContent>
-                    <Grid
-                        spacing={2}
-                        container
-                        sx={{
-                            p: 0,
-                            m: 0,
-                        }}
-                    >
-                        {
-                            items.map((item) => (
-                                <Grid
-                                    md={3}
-                                    sm={6}
-                                    xs={12}
-                                    item
-                                >
+                {
+                    items.map((item) => (
+                        <Grid
+                            md={3}
+                            sm={6}
+                            item
+                        >
+                            <Card
+                                variant="elevation"
+                                elevation={0}
+                                sx={{
+                                    bgcolor: "white",
+                                }}
+                            >
+                                <CardContent>
                                     <Box
                                         sx={{
                                             textAlign: "center",
@@ -114,12 +113,12 @@ const HomePage = () => {
                                             { item.count }
                                         </Typography>
                                     </Box>
-                                </Grid>
-                            ))
-                        }
-                    </Grid>
-                </CardContent>
-            </Card>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))
+                }
+            </Grid>
         </Container>
     );
 }
