@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import {
     Grid,
     Box,
-    Container,
+    colors,
     Card,
     CardHeader,
     CardContent,
     Typography,
+    TextField,
+    Button,
 } from "@mui/material";
 
 import Axios from "axios";
@@ -20,6 +22,8 @@ const ShowTicket = () => {
     const { id } = useParams();
 
     const [ticket, setTicket] = useState({});
+
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         Axios.get(`${baseUrl}/v1/ticket/${id}`)
@@ -33,98 +37,114 @@ const ShowTicket = () => {
 
     return (
         <Box>
-            <Container
-                maxWidth="md"
-                sx={{ my: 2 }}
+            <Grid
+                spacing={3}
+                container
             >
                 <Grid
-                    spacing={3}
-                    container
+                    md={6}
+                    sm={6}
+                    xs={10}
+                    item
                 >
-                    <Grid
-                        md={6}
-                        sm={6}
-                        xs={10}
-                        item
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            bgcolor: colors.deepPurple[500],
+                            color: "white",
+                        }}
                     >
-                        <Card
-                            variant="elevation"
-                            elevation={5}
-                        >
-                            <CardHeader
-                                title={ticket.title}
-                                sx={{
-                                    fontWeight: "bold",
-                                    borderBottom: "solid",
-                                    borderBottomWidth: 1,
-                                }}
-                            />
-                            <CardContent>
-                                <Typography
-                                    variant="body1"
-                                    gutterBottom
-                                    sx={{
-                                        mb: 5,
-                                    }}
-                                >
-                                    { ticket.message }
-                                </Typography>
-                                <Typography
-                                    variant="subtitle2"
-                                >
-                                    ارسال شده در { new Date(ticket.createdAt).toLocaleString("fa-IR") }
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid md={6} sm={6} xs={2} item />
-                    <Grid md={6} sm={6} xs={2} item />
-                    <Grid
-                        md={6}
-                        sm={6}
-                        xs={10}
-                        item
-                    >
-                        <Card
-                            variant="elevation"
-                            elevation={5}
+                        <CardHeader
+                            title={ticket.title}
                             sx={{
-                                bgcolor: "background.default"
+                                fontWeight: "bold",
+                                borderBottom: "solid",
+                                borderBottomWidth: 1,
                             }}
-                        >
-                            <CardContent>
-                                {
-                                    ticket.answer !== ""
-                                    ?
-                                    <Box>
-                                        <Typography
-                                            variant="body1"
-                                            gutterBottom
-                                            sx={{
-                                                mb: 5,
-                                            }}
-                                        >
-                                            { ticket.answer }
-                                        </Typography>
-                                        <Typography
-                                            variant="subtitle2"
-                                        >
-                                            پاسخ داده شده در { new Date(ticket.updatedAt).toLocaleString("fa-IR") }
-                                        </Typography>
-                                    </Box>
-                                    :
-                                    <Typography
-                                        variant="body2"
-                                        fontStyle="italic"
-                                    >
-                                        هنوز پاسخی برای این تیکت ثبت نشده است.
-                                    </Typography>
-                                }
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                        />
+                        <CardContent>
+                            <Typography
+                                variant="body1"
+                                gutterBottom
+                                sx={{
+                                    mb: 5,
+                                }}
+                            >
+                                { ticket.message }
+                            </Typography>
+                            <Typography
+                                variant="subtitle2"
+                            >
+                                ارسال شده در { new Date(ticket.createdAt).toLocaleString("fa-IR") }
+                            </Typography>
+                        </CardContent>
+                    </Card>
                 </Grid>
-            </Container>
+                <Grid md={6} sm={6} xs={2} item />
+                <Grid md={6} sm={6} xs={2} item />
+                <Grid
+                    md={6}
+                    sm={6}
+                    xs={10}
+                    item
+                >
+                    <Card
+                        variant="outlined"
+                        sx={{
+                            borderColor: "primary.main",
+                            bgcolor: ticket.answer !== "" ? colors.deepPurple[500] : "white",
+                            color: ticket.answer !== "" ? "white" : "primary.main",
+                        }}
+                    >
+                        <CardContent>
+                            {
+                                ticket.answer !== ""
+                                ?
+                                <Box>
+                                    <Typography
+                                        variant="body1"
+                                        gutterBottom
+                                        sx={{
+                                            mb: 5,
+                                        }}
+                                    >
+                                        { ticket.answer }
+                                    </Typography>
+                                    <Typography
+                                        variant="subtitle2"
+                                    >
+                                        پاسخ داده شده در { new Date(ticket.updatedAt).toLocaleString("fa-IR") }
+                                    </Typography>
+                                </Box>
+                                :
+                                <Box>
+                                    <TextField
+                                        placeholder="جواب تیکت را وارد کنید"
+                                        label="جواب تیکت"
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                        rows={5}
+                                        sx={{
+                                            mb: 3,
+                                        }}
+                                        multiline
+                                        fullWidth
+                                    />
+                                    <Button
+                                        variant="contained"
+                                        size="large"
+                                        onClick={() => {}}
+                                        disableElevation
+                                        fullWidth
+                                    >
+                                        ارسال پاسخ تیکت
+                                    </Button>
+                                </Box>
+                            }
+                        </CardContent>
+                    </Card>
+                </Grid>
+            </Grid>
         </Box>
     );
 }

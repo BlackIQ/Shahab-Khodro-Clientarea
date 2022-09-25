@@ -40,55 +40,50 @@ const NewTicket = () => {
 
     return (
         <Box>
-            <Container
-                maxWidth="md"
-                sx={{ my: 2 }}
+            <Card
+                variant="elevation"
+                elevation={20}
             >
-                <Card
-                    variant="elevation"
-                    elevation={20}
-                >
-                    <CardHeader
-                        title="ثبت تیکت جدید"
+                <CardHeader
+                    title="ثبت تیکت جدید"
+                    sx={{
+                        color: "primary.main",
+                    }}
+                />
+                <CardContent>
+                    <TextField
+                        placeholder="موضوع تیکت را وارد کنید"
+                        label="موضوع تیکت"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         sx={{
-                            color: "primary.main",
+                            mb: 3,
                         }}
+                        fullWidth
                     />
-                    <CardContent>
-                        <TextField
-                            placeholder="موضوع تیکت را وارد کنید"
-                            label="موضوع تیکت"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            sx={{
-                                mb: 3,
-                            }}
-                            fullWidth
-                        />
-                        <TextField
-                            placeholder="پیام تیکت را وارد کنید"
-                            label="پیام تیکت"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            rows={5}
-                            sx={{
-                                mb: 3,
-                            }}
-                            multiline
-                            fullWidth
-                        />
-                        <Button
-                            variant="contained"
-                            size="large"
-                            onClick={newTicket}
-                            disableElevation
-                            fullWidth
-                        >
-                            ارسال تیکت
-                        </Button>
-                    </CardContent>
-                </Card>
-            </Container>
+                    <TextField
+                        placeholder="پیام تیکت را وارد کنید"
+                        label="پیام تیکت"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        rows={5}
+                        sx={{
+                            mb: 3,
+                        }}
+                        multiline
+                        fullWidth
+                    />
+                    <Button
+                        variant="contained"
+                        size="large"
+                        onClick={newTicket}
+                        disableElevation
+                        fullWidth
+                    >
+                        ارسال تیکت
+                    </Button>
+                </CardContent>
+            </Card>
         </Box>
     );
 }

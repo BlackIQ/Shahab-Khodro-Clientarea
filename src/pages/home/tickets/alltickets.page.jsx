@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom"; 
+import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react"; 
 import { useSelector } from "react-redux";
 
 import {
@@ -12,13 +12,7 @@ import {
     TableCell,
     TableRow,
     Paper,
-    Container,
 } from "@mui/material";
-
-import {
-    Done,
-    DoneAll,
-} from "@mui/icons-material";
 
 import Axios from "axios";
 
@@ -44,11 +38,11 @@ const AllTickets = () => {
     const getStatus = (status) => {
         switch (status) {
             case '1':
-                return <Done />;
+                return "به دست پشتیبان رسیده است";
             case '2':
-                return <DoneAll />;
+                return "توسط پشتیبان خوانده شد";
             case '3':
-                return <DoneAll sx={{ color: "blue" }} />;
+                return "به تیکت جواب داده شد";
             default:
                 return status;
         }
@@ -56,50 +50,52 @@ const AllTickets = () => {
 
     return (
         <Box>
-            <Container
-                maxWidth="md"
-                sx={{ my: 2 }}
-            >
-                {
-                    tickets !== []
-                    ?
-                    <TableContainer
-                        variant="elevation"
-                        elevation={20}
-                        component={Paper}
-                    >
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align="center">موضوع تیکت</TableCell>
-                                    <TableCell align="center">تاریخ ثبت تیکت</TableCell>
-                                    <TableCell align="center">وضعیت</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    tickets.map((ticket) => (
-                                        <TableRow
-                                            onClick={() => history.push(`/tickets/show/${ticket._id}`)}
-                                            sx={{
-                                                cursor: "pointer",
-                                            }}
-                                        >
-                                            <TableCell align="center">{ ticket.title }</TableCell>
-                                            <TableCell align="center">{ new Date(ticket.createdAt).toLocaleString("fa-IR") }</TableCell>
-                                            <TableCell align="center">{ getStatus(ticket.status) }</TableCell>
-                                        </TableRow>
-                                    ))
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    :
-                    <Typography>
-                        هیچ تیکتی یافت نشد.
-                    </Typography>
-                }
-            </Container>
+            {
+                tickets !== []
+                ?
+                <TableContainer
+                    variant="elevation"
+                    elevation={20}
+                    component={Paper}
+                >
+                    <Table>
+                        <TableHead>
+                            <TableRow
+                                sx={{
+                                    bgcolor: "primary.main",
+                                }}
+                            >
+                                <TableCell align="center" sx={{ color: "white" }}>موضوع تیکت</TableCell>
+                                <TableCell align="center" sx={{ color: "white" }}>تاریخ ثبت تیکت</TableCell>
+                                <TableCell align="center" sx={{ color: "white" }}>وضعیت</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                tickets.map((ticket) => (
+                                    <TableRow
+                                        onClick={() => history.push(`/tickets/show/${ticket._id}`)}
+                                        sx={{
+                                            cursor: "pointer",
+                                            '&:nth-of-type(even)': {
+                                                backgroundColor: "background.default",
+                                            },
+                                        }}
+                                    >
+                                        <TableCell align="center">{ ticket.title }</TableCell>
+                                        <TableCell align="center">{ new Date(ticket.createdAt).toLocaleString("fa-IR") }</TableCell>
+                                        <TableCell align="center">{ getStatus(ticket.status) }</TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                :
+                <Typography>
+                    هیچ تیکتی یافت نشد.
+                </Typography>
+            }
         </Box>
     );
 }
