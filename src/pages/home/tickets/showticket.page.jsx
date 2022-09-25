@@ -79,7 +79,7 @@ const ShowTicket = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                </Grid>درخواست
+                </Grid>
                 <Grid md={6} sm={6} xs={2} item />
                 <Grid md={6} sm={6} xs={2} item />
                 <Grid
