@@ -102,7 +102,8 @@ const AuthenticationPage = () => {
                 >
                     <Box
                         sx={{
-                            py: 10,
+                            pt: 15,
+                            mb: 10,
                             px: 5,
                         }}
                     >
