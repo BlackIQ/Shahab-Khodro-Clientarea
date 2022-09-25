@@ -2,7 +2,6 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-    Box,
     AppBar,
     Toolbar,
     Typography,
@@ -30,37 +29,35 @@ const Navbar = () => {
     }
 
     return (
-        <Box>
-            <AppBar
-                elevation={0}
-                position="fixed"
-                sx={{
-                    zIndex: (theme) => theme.zIndex.drawer + 1
-                }}
-            >
-                <Container maxWidth="xl">
-                    <Toolbar>
-                        <Typography
-                            variant="h5"
-                            onClick={() => history.push("/")}
-                            sx={{
-                                flexGrow: 1,
-                                pr: 5,
-                                cursor: "pointer",
-                            }}
-                        >
-                            پنل کاربر شهاب خودرو
-                        </Typography>
-                        <IconButton
-                            color="inherit"
-                            onClick={() => session ? logout() : history.push("/auth")}
-                        >
-                            { session ? <Logout /> : <Login /> }
-                        </IconButton>
-                    </Toolbar>
-                </Container>
-            </AppBar>
-        </Box>
+        <AppBar
+            elevation={0}
+            position="fixed"
+            sx={{
+                zIndex: (theme) => theme.zIndex.drawer + 1
+            }}
+        >
+            <Container maxWidth="xl">
+                <Toolbar>
+                    <Typography
+                        variant="h5"
+                        onClick={() => history.push("/")}
+                        sx={{
+                            flexGrow: 1,
+                            pr: 5,
+                            cursor: "pointer",
+                        }}
+                    >
+                        پنل کاربر شهاب خودرو
+                    </Typography>
+                    <IconButton
+                        color="inherit"
+                        onClick={() => session ? logout() : history.push("/auth")}
+                    >
+                        { session ? <Logout /> : <Login /> }
+                    </IconButton>
+                </Toolbar>
+            </Container>
+        </AppBar>
     );
 }
 

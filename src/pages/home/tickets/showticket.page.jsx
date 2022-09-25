@@ -79,7 +79,7 @@ const ShowTicket = () => {
                             </Typography>
                         </CardContent>
                     </Card>
-                </Grid>
+                </Grid>درخواست
                 <Grid md={6} sm={6} xs={2} item />
                 <Grid md={6} sm={6} xs={2} item />
                 <Grid
@@ -117,29 +117,12 @@ const ShowTicket = () => {
                                     </Typography>
                                 </Box>
                                 :
-                                <Box>
-                                    <TextField
-                                        placeholder="جواب تیکت را وارد کنید"
-                                        label="جواب تیکت"
-                                        value={message}
-                                        onChange={(e) => setMessage(e.target.value)}
-                                        rows={5}
-                                        sx={{
-                                            mb: 3,
-                                        }}
-                                        multiline
-                                        fullWidth
-                                    />
-                                    <Button
-                                        variant="contained"
-                                        size="large"
-                                        onClick={() => {}}
-                                        disableElevation
-                                        fullWidth
-                                    >
-                                        ارسال پاسخ تیکت
-                                    </Button>
-                                </Box>
+                                <Typography
+                                    variant="body2"
+                                    fontStyle="italic"
+                                >
+                                    هنوز پاسخی برای این تیکت ثبت نشده است.
+                                </Typography>
                             }
                         </CardContent>
                     </Card>
