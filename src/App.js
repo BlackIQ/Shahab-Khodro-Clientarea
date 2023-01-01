@@ -5,13 +5,9 @@ import {
   Box,
   CssBaseline,
 } from "@mui/material";
-import { faIR } from '@mui/material/locale';
+import { faIR } from "@mui/material/locale";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import NewTicket from "./pages/home/tickets/newticket.page";
 import ShowTicket from "./pages/home/tickets/showticket.page";
@@ -29,7 +25,7 @@ import HomeLayout from "./pages/layouts/home.layout";
 const authRoutes = [
   {
     path: "/auth",
-    component: <AuthenticationPage />
+    component: <AuthenticationPage />,
   },
 ];
 
@@ -65,19 +61,22 @@ const homeRoutes = [
 ];
 
 const App = () => {
-  const theme = createTheme({
-    palette: {
-      background: {
-        default: colors.deepPurple[50],
+  const theme = createTheme(
+    {
+      palette: {
+        background: {
+          default: colors.deepPurple[50],
+        },
+        primary: {
+          main: colors.deepPurple[900],
+        },
       },
-      primary: {
-        main: colors.deepPurple[900],
+      typography: {
+        fontFamily: "Vazirmatn, Lalezar",
       },
     },
-    typography: {
-      fontFamily: "Vazirmatn, Lalezar",
-    },
-  }, faIR);
+    faIR
+  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,23 +84,23 @@ const App = () => {
       <Router>
         <Switch>
           <Box sx={{ direction: "rtl" }}>
-            {
-              authRoutes.map((route) => (
-                <Route path={route.path} exact>{ route.component }</Route>
-              ))
-            }
+            {authRoutes.map((route) => (
+              <Route path={route.path} exact>
+                {route.component}
+              </Route>
+            ))}
             <HomeLayout>
-              {
-                homeRoutes.map((route) => (
-                  <Route path={route.path} exact>{ route.component }</Route>
-                ))
-              }
+              {homeRoutes.map((route) => (
+                <Route path={route.path} exact>
+                  {route.component}
+                </Route>
+              ))}
             </HomeLayout>
           </Box>
         </Switch>
       </Router>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
