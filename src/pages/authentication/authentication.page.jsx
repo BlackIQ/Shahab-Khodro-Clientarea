@@ -26,11 +26,11 @@ const AuthenticationPage = () => {
         ? await AuthServices.login(data)
         : await AuthServices.register(data);
 
-      // localStorage.setItem("token", token);
+      localStorage.setItem("token", token);
 
-      // dispatch(UserAction.setUser(user));
+      dispatch(UserAction.setUser(user));
 
-      // history.push("/");
+      history.push("/");
 
       console.log(token, user);
 

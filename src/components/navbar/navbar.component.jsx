@@ -24,7 +24,7 @@ const Navbar = () => {
               cursor: "pointer",
             }}
           >
-            پنل ادمین شهاب خودرو
+            پنل کلاینت شهاب خودرو
           </Typography>
         </Toolbar>
       </Container>

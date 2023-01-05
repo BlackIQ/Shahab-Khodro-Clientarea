@@ -65,10 +65,10 @@ const App = () => {
     {
       palette: {
         background: {
-          default: colors.deepPurple[50],
+          default: "#f5f5f5",
         },
         primary: {
-          main: colors.deepPurple[900],
+          main: colors.lightBlue[900],
         },
       },
       typography: {
@@ -81,9 +81,9 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
-        <Switch>
-          <Box sx={{ direction: "rtl" }}>
+      <Box sx={{ direction: "rtl" }}>
+        <Router>
+          <Switch>
             {authRoutes.map((route) => (
               <Route path={route.path} exact>
                 {route.component}
@@ -96,9 +96,9 @@ const App = () => {
                 </Route>
               ))}
             </HomeLayout>
-          </Box>
-        </Switch>
-      </Router>
+          </Switch>
+        </Router>
+      </Box>
     </ThemeProvider>
   );
 };
