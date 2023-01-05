@@ -19,6 +19,8 @@ import { tables } from "src/config/tables";
 
 import { useEffect, useState } from "react";
 
+import { formatDistanceToNow } from "date-fns-jalali";
+
 const TableComponent = ({ table, data, onClick, download, addButton }) => {
   const tbl = tables[table];
 
@@ -75,7 +77,14 @@ const TableComponent = ({ table, data, onClick, download, addButton }) => {
             return d[i];
         }
       default:
-        return d[i];
+        switch (i) {
+          case "updatedAt":
+            return `${formatDistanceToNow(new Date(d[i]))} پیش`;
+          case "createdAt":
+            return `${formatDistanceToNow(new Date(d[i]))} پیش`;
+          default:
+            return d[i];
+        }
     }
   };
 
